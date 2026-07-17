@@ -215,8 +215,10 @@ export default function BookPlayer() {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
-  const handleProgressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newTime = parseFloat(e.target.value);
+  const handleProgressChange = (
+    e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLInputElement>
+  ) => {
+    const newTime = parseFloat(e.currentTarget.value);
     setCurrentTime(newTime);
 
     if (playerMode === 'audio' && audioRef.current) {
@@ -647,3 +649,7 @@ export default function BookPlayer() {
 //     </div>
 //   );
 // }
+
+
+
+

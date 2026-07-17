@@ -939,22 +939,259 @@
 
 
 
+// "use client";
+
+// import React, { useEffect, useState } from 'react';
+// import { useRouter } from 'next/navigation';
+//  import Image from "next/image";
+
+
+// import { 
+//   Home, 
+//   Library, 
+//   Highlighter, 
+//   Search, 
+//   Settings, 
+//   HelpCircle, 
+//   LogOut,
+//   Clock,
+//   Star,
+//   LogOutIcon
+// } from 'lucide-react';
+
+
+// type Book = {
+//   id: string;
+//   author: string;
+//   title: string;
+//   subTitle: string;
+//   imageLink: string;
+//   audioLink: string;
+//   totalRating: number;
+//   averageRating: number;
+//   keyIdeas: number | string;
+//   type: 'audio' | 'text' | 'audio & text';
+//   status: 'selected' | 'recommended' | 'suggested';
+//   subscriptionRequired: boolean;
+//   summary: string;
+//   tags: string[];
+//   bookDescription: string;
+//   authorDescription: string;
+// };
+
+// export default function BookDashboard() {
+//   const router = useRouter();
+  
+//   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+//   const [recommendedBooks, setRecommendedBooks] = useState<Book[]>([]);
+//   const [suggestedBooks, setSuggestedBooks] = useState<Book[]>([]);
+  
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState<string | null>(null);
+
+//   const [activeTab, setActiveTab] = useState('Home');
+//   const [searchQuery, setSearchQuery] = useState('');
+
+//   const getBookMetadata = (book: Book) => {
+//     const numericalIdeas = parseInt(book.keyIdeas as string) || 6;
+//     const computedDuration = (book.title.length % 5) + (numericalIdeas * 3) + 8;
+//     const displayRating = book.averageRating || (4 + (book.title.length % 10) / 10);
+    
+//     return {
+//       duration: `${computedDuration} mins`,
+//       rating: displayRating.toFixed(1)
+//     };
+//   };
+
+//   useEffect(() => {
+//     async function fetchAllBooks() {
+//       try {
+//         setLoading(true);
+//         setError(null);
+
+//         const [selectedRes, recommendedRes, suggestedRes] = await Promise.all([
+//           fetch('https://us-central1-summaristt.cloudfunctions.net/getBooks?status=selected'),
+//           fetch('https://us-central1-summaristt.cloudfunctions.net/getBooks?status=recommended'),
+//           fetch('https://us-central1-summaristt.cloudfunctions.net/getBooks?status=suggested')
+//         ]);
+
+//         if (!selectedRes.ok || !recommendedRes.ok || !suggestedRes.ok) {
+//           throw new Error('Could not retrieve database information layout safely.');
+//         }
+       
+//         const selectedData = await selectedRes.json();
+//         const recommendedData = await recommendedRes.json();
+//         const suggestedData = await suggestedRes.json();
+
+//         setSelectedBook(Array.isArray(selectedData) ? selectedData[0] : selectedData);
+//         setRecommendedBooks(Array.isArray(recommendedData) ? recommendedData : [recommendedData]);
+//         setSuggestedBooks(Array.isArray(suggestedData) ? suggestedData : [suggestedData]);
+           
+//       } catch (err: any) {
+//         setError(err.message || 'An error occurred while loading content.');
+//       } finally {
+//         setLoading(false);
+//       }
+//     }
+
+//     fetchAllBooks();
+//   }, []);
+
+//   const handleBookClick = (bookId: string) => {
+//     router.push(`/book/${bookId}`);
+//   };
+
+//   const handleLogout = () => {
+//     console.log("Logging out user...");
+//   };
+
+//   if (loading) return <div className="dashboard__loading">Loading bookshelf...</div>;
+//   if (error) return <div className="dashboard__error">Error: {error}</div>;
+
+//   return (
+//     <div className="dashboard-layout">
+      
+    
+//       {/* ================= MAIN CONTENT APP CONTAINER ================= */}
+//       <main className="dashboard-content">
+        
+//         {/* ================= SELECTED BOOK SECTION ================= */}
+//         {selectedBook && (() => {
+//           const meta = getBookMetadata(selectedBook);
+//           return (
+//             <section className="dashboard-section">
+//               <h2 className="dashboard-section__title">Selected just for you</h2>
+//               <div 
+//                 className="hero-book-card" 
+//                 onClick={() => handleBookClick(selectedBook.id)}
+//               >
+//                 <div className="hero-book-card__cover">
+//                   <img src={selectedBook.imageLink} alt={selectedBook.title} className="hero-book-card__img" />
+//                   {selectedBook.subscriptionRequired && (
+//                     <span className="premium-badge">Premium</span>
+//                   )}
+//                 </div>
+//                 <div className="hero-book-card__info">
+//                   <h3 className="hero-book-card__title">{selectedBook.title}</h3>
+//                   {selectedBook.subTitle && <h4 className="hero-book-card__subtitle">{selectedBook.subTitle}</h4>}
+//                   <p className="hero-book-card__author">{selectedBook.author}</p>
+                  
+//                   <div className="hero-book-card__meta">
+//                     <div className="meta-item">
+//                       <Clock size={14} />
+//                       <span>{meta.duration}</span>
+//                     </div>
+//                   </div>
+//                 </div>
+//               </div>
+//             </section>
+//           );
+//         })()}
+
+//         {/* ================= RECOMMENDED BOOKS SECTION ================= */}
+//         <section className="dashboard-section">
+//           <h2 className="dashboard-section__title">Recommended Books</h2>
+//           <div className="books-grid">
+//             {recommendedBooks.map((book) => {
+//               const meta = getBookMetadata(book);
+//               return (
+//                 <div 
+//                   key={book.id} 
+//                   className="grid-book-card" 
+//                   onClick={() => handleBookClick(book.id)}
+//                 >
+//                   <div className="grid-book-card__cover">
+//                     <img src={book.imageLink} alt={book.title} className="grid-book-card__img" />
+//                     {book.subscriptionRequired && (
+//                       <span className="premium-badge">Premium</span>
+//                     )}
+//                   </div>
+//                   <div className="grid-book-card__body">
+//                     <h3 className="grid-book-card__title">{book.title}</h3>
+//                     <p className="grid-book-card__author">{book.author}</p>
+//                     <h5 className="grid-book-card__subtitle">{book.subTitle}</h5>
+                    
+//                     <div className="grid-book-card__meta">
+//                       <div className="meta-item">
+//                         <Clock size={12} />
+//                         <span>{meta.duration}</span>
+//                       </div>
+//                       <div className="meta-item meta-item--rating">
+//                         <Star size={12} />
+//                         <span>{meta.rating}</span>
+//                       </div>
+//                     </div>
+//                   </div>
+//                 </div>
+//               );
+//             })}
+//           </div>
+//         </section>
+
+//         {/* ================= SUGGESTED BOOKS SECTION ================= */}
+//         <section className="dashboard-section">
+//           <h2 className="dashboard-section__title">Suggested Books</h2>
+//           <div className="books-grid">
+//             {suggestedBooks.map((book) => {
+//               const meta = getBookMetadata(book);
+//               return (
+//                 <div 
+//                   key={book.id} 
+//                   className="grid-book-card" 
+//                   onClick={() => handleBookClick(book.id)}
+//                 >
+//                   <div className="grid-book-card__cover">
+//                     <img src={book.imageLink} alt={book.title} className="grid-book-card__img" />
+//                     {book.subscriptionRequired && (
+//                       <span className="premium-badge">Premium</span>
+//                     )}
+//                   </div>
+//                   <div className="grid-book-card__body">
+//                     <h3 className="grid-book-card__title">{book.title}</h3>
+//                     <p className="grid-book-card__author">{book.author}</p>
+//                     <h5 className="grid-book-card__subtitle">{book.subTitle}</h5>
+                    
+//                     <div className="grid-book-card__meta">
+//                       <div className="meta-item">
+//                         <Clock size={12} />
+//                         <span>{meta.duration}</span>
+//                       </div>
+//                       <div className="meta-item meta-item--rating">
+//                         <Star size={12} />
+//                         <span>{meta.rating}</span>
+//                       </div>
+//                     </div>
+//                   </div>
+//                 </div>
+//               );
+//             })}
+//           </div>
+//         </section>
+
+//       </main>
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+
+
+
 "use client";
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from "next/image";
+
+
 import { 
-  Home, 
-  Library, 
-  Highlighter, 
-  Search, 
-  Settings, 
-  HelpCircle, 
-  LogOut,
   Clock,
   Star
 } from 'lucide-react';
-
 
 type Book = {
   id: string;
@@ -984,9 +1221,6 @@ export default function BookDashboard() {
   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const [activeTab, setActiveTab] = useState('Home');
-  const [searchQuery, setSearchQuery] = useState('');
 
   const getBookMetadata = (book: Book) => {
     const numericalIdeas = parseInt(book.keyIdeas as string) || 6;
@@ -1037,90 +1271,24 @@ export default function BookDashboard() {
     router.push(`/book/${bookId}`);
   };
 
-  const handleLogout = () => {
-    console.log("Logging out user...");
-  };
-
-  if (loading) return <div className="dashboard__loading">Loading bookshelf...</div>;
-  if (error) return <div className="dashboard__error">Error: {error}</div>;
+  if (loading) {
+    return (
+      <div className="dashboard-status-container">
+        <div className="dashboard__loading">Loading bookshelf...</div>
+      </div>
+    );
+  }
+  
+  if (error) {
+    return (
+      <div className="dashboard-status-container">
+        <div className="dashboard__error">Error: {error}</div>
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard-layout">
-      
-      {/* ================= SIDEBAR COMPONENT ================= */}
-      <aside className="dashboard-sidebar">
-        <div className="dashboard-sidebar__header">
-          <span className="dashboard-sidebar__brand">Summarist</span>
-        </div>
-
-        <div className="dashboard-sidebar__search-box">
-          <div className="search-input-wrapper">
-            <Search className="search-input-wrapper__icon" size={16} />
-            <input
-              type="text"
-              placeholder="Search layout..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="search-input-wrapper__field"
-            />
-          </div>
-        </div>
-
-        <nav className="dashboard-sidebar__nav">
-          {[
-            { name: 'Home', icon: Home, route: '/' },
-            { name: 'My Library', icon: Library, route: '/library' },
-            { name: 'Highlights', icon: Highlighter, route: '/highlights' },
-            { name: 'Search', icon: Search, route: '/search' },
-          ].map((item) => {
-            const Icon = item.icon;
-            const isActive = activeTab === item.name;
-            return (
-              <button
-                key={item.name}
-                onClick={() => {
-                  setActiveTab(item.name);
-                  if (item.route !== '/') router.push(item.route);
-                }}
-                className={`nav-link ${isActive ? 'nav-link--active' : ''}`}
-              >
-                <Icon size={18} />
-                <span>{item.name}</span>
-              </button>
-            );
-          })}
-        </nav>
-
-        <div className="dashboard-sidebar__footer">
-          {[
-            { name: 'Settings', icon: Settings, route: '/settings' },
-            { name: 'Help & Support', icon: HelpCircle, route: '/help' },
-          ].map((item) => {
-            const Icon = item.icon;
-            const isActive = activeTab === item.name;
-            return (
-              <button
-                key={item.name}
-                onClick={() => {
-                  setActiveTab(item.name);
-                  router.push(item.route);
-                }}
-                className={`nav-link ${isActive ? 'nav-link--active' : ''}`}
-              >
-                <Icon size={18} />
-                <span>{item.name}</span>
-              </button>
-            );
-          })}
-
-          <button onClick={handleLogout} className="nav-link nav-link--logout">
-            <LogOut size={18} />
-            <span>Logout</span>
-          </button>
-        </div>
-      </aside>
-
-      {/* ================= MAIN CONTENT APP CONTAINER ================= */}
       <main className="dashboard-content">
         
         {/* ================= SELECTED BOOK SECTION ================= */}
@@ -1134,19 +1302,25 @@ export default function BookDashboard() {
                 onClick={() => handleBookClick(selectedBook.id)}
               >
                 <div className="hero-book-card__cover">
-                  <img src={selectedBook.imageLink} alt={selectedBook.title} className="hero-book-card__img" />
+                  <img 
+                    src={selectedBook.imageLink} 
+                    alt={selectedBook.title} 
+                    className="hero-book-card__img" 
+                  />
                   {selectedBook.subscriptionRequired && (
                     <span className="premium-badge">Premium</span>
                   )}
                 </div>
                 <div className="hero-book-card__info">
                   <h3 className="hero-book-card__title">{selectedBook.title}</h3>
-                  {selectedBook.subTitle && <h4 className="hero-book-card__subtitle">{selectedBook.subTitle}</h4>}
+                  {selectedBook.subTitle && (
+                    <h4 className="hero-book-card__subtitle">{selectedBook.subTitle}</h4>
+                  )}
                   <p className="hero-book-card__author">{selectedBook.author}</p>
                   
                   <div className="hero-book-card__meta">
                     <div className="meta-item">
-                      <Clock size={14} />
+                      <Clock size={16} />
                       <span>{meta.duration}</span>
                     </div>
                   </div>
@@ -1169,7 +1343,11 @@ export default function BookDashboard() {
                   onClick={() => handleBookClick(book.id)}
                 >
                   <div className="grid-book-card__cover">
-                    <img src={book.imageLink} alt={book.title} className="grid-book-card__img" />
+                    <img 
+                      src={book.imageLink} 
+                      alt={book.title} 
+                      className="grid-book-card__img" 
+                    />
                     {book.subscriptionRequired && (
                       <span className="premium-badge">Premium</span>
                     )}
@@ -1181,11 +1359,11 @@ export default function BookDashboard() {
                     
                     <div className="grid-book-card__meta">
                       <div className="meta-item">
-                        <Clock size={12} />
+                        <Clock size={14} />
                         <span>{meta.duration}</span>
                       </div>
                       <div className="meta-item meta-item--rating">
-                        <Star size={12} />
+                        <Star size={14} />
                         <span>{meta.rating}</span>
                       </div>
                     </div>
@@ -1209,7 +1387,11 @@ export default function BookDashboard() {
                   onClick={() => handleBookClick(book.id)}
                 >
                   <div className="grid-book-card__cover">
-                    <img src={book.imageLink} alt={book.title} className="grid-book-card__img" />
+                    <img 
+                      src={book.imageLink} 
+                      alt={book.title} 
+                      className="grid-book-card__img" 
+                    />
                     {book.subscriptionRequired && (
                       <span className="premium-badge">Premium</span>
                     )}
@@ -1221,11 +1403,11 @@ export default function BookDashboard() {
                     
                     <div className="grid-book-card__meta">
                       <div className="meta-item">
-                        <Clock size={12} />
+                        <Clock size={14} />
                         <span>{meta.duration}</span>
                       </div>
                       <div className="meta-item meta-item--rating">
-                        <Star size={12} />
+                        <Star size={14} />
                         <span>{meta.rating}</span>
                       </div>
                     </div>
