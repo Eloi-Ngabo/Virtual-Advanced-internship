@@ -6,10 +6,8 @@ export default function page() {
   return (
      <div className='container'>
         <div className='row'>
-         <div className='section_title page__title'>Settings</div>
          <div className='settings__login--wrapper'>
-           <img src= "login" alt="logoin" />
-            
+         <img src="/assets/login.png" alt="Login" />
             <div className='settings__login--text'> Log in to your account to see your Library.</div>
              <button className='btn settings__login--btn'>Login</button>
          </div>

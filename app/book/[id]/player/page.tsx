@@ -4,8 +4,10 @@
 
 "use client";
 
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+import Sidebar from '@/components/Sidebar';
 
 interface BookData {
   id: string;
@@ -13,7 +15,7 @@ interface BookData {
   subtitle?: string;
   author?: string;
   summary: string;
-  audioSrc: string;
+  audioLink: string;
   imageLink?: string; 
   duration?: number; 
   isPremium?: boolean;
@@ -301,10 +303,12 @@ export default function BookPlayer() {
   }
 
   return (
+  
     <div className="player-container">
+     
       <audio 
         ref={audioRef} 
-        src={book.audioSrc} 
+        src={book.audioLink} 
         preload="metadata" 
         onLoadedMetadata={onLoadedMetadata}
         onEnded={handleAudioEnded}
@@ -318,17 +322,11 @@ export default function BookPlayer() {
           <button 
             className={`tab-btn ${playerMode === 'audio' ? 'active' : ''}`}
             onClick={() => handleModeToggle('audio')}
-            style={{ padding: '8px 16px', cursor: 'pointer', backgroundColor: playerMode === 'audio' ? '#2bd97c' : '#ccc', border: 'none', borderRadius: '4px' }}
+            // style={{ padding: '8px 16px', cursor: 'pointer', backgroundColor: playerMode === 'audio' ? '#2bd97c' : '#ccc', border: 'none', borderRadius: '4px' }}
           >
-            Original Audio Track
+         
           </button>
-          <button 
-            className={`tab-btn ${playerMode === 'tts' ? 'active' : ''}`}
-            onClick={() => handleModeToggle('tts')}
-            style={{ padding: '8px 16px', cursor: 'pointer', backgroundColor: playerMode === 'tts' ? '#2bd97c' : '#ccc', border: 'none', borderRadius: '4px' }}
-          >
-            AI Voice Reader (TTS)
-          </button>
+        
         </div>
 
         <div className="book-summary" style={{ whiteSpace: 'pre-wrap', lineHeight: '1.6' }}>{book.summary}</div>

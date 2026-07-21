@@ -1,6 +1,5 @@
 import Landing from "@/components/Landing";
-import Navbar from "@/components/Navbar";
-import Setting from "@/components/Setting";
+// import Navbar from "@/components/Navbar";
 import Features from "@/Home/Features";
 import Footer from "@/Home/Footer";
 import Numbers from "@/Home/Numbers";
@@ -14,7 +13,7 @@ import Sales from "@/Home/Sales";
 export default function Home() {
   return (
    <>
-   <Navbar />
+   {/* <Navbar /> */}
    <Landing />
    <Features />
    <Reviews />

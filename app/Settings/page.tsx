@@ -1,20 +1,25 @@
-import React from 'react'
+"use client";
+import React, { useState } from 'react'
+
 
 export default function page() {
-  return (
-   <div className='container'>
-        <div className='row'>
-         <div className='section_title page__title'>Settings</div>
-         <div className='settings__login--wrapper'>
-            <img alt="login" srcSet="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogin.e313e580.png&amp;w=1080&amp;q=75 1x, /_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogin.e313e580.png&amp;w=3840&amp;q=75 2x" 
-            src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogin.e313e580.png&amp;w=3840&amp;q=75" width="1033" height="712" decoding="async" data-nimg="1" loading="lazy" style={{ color: 'transparent' }} />
-            <div className='settings__login--text'> Log in to your account to see your details.</div>
-             <button className='btn settings__login--btn'>Login</button>
-         </div>
-        </div>
-      
-    </div>
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
+  return (
+    <div className='container'>
+      <div className='row'>
+        <div className='section__title page__title'>Settings</div>
+        <div className='settings__login--wrapper'>
+          <img src="/assets/login.png" alt="Login" />
+          <div className='settings__login--text'> Log in to your account to see your details.</div>
+          <button className='btn settings__login--btn' onClick={() => setShowLoginModal(true)}>Login</button>
+        </div>
+      </div>
+
+      {showLoginModal && (
+        <div className="modal-placeholder">Login modal would open here.</div>
+      )}
+    </div>
   )
 }
 
