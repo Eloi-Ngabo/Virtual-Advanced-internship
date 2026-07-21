@@ -862,7 +862,7 @@ button:disabled {
 
 
 
-/* books sytles */
+
 
 
 
@@ -927,7 +927,7 @@ BOOKs CSS Styling
 /* Sticky Cover Layout Elements */
 .artwork-panel-column {
   width: 200%; 
-  /* margin-left: 200px; */
+  margin-left: 200px;
   align-items: center;
 
 
@@ -1187,7 +1187,7 @@ BOOK SUMMARY
 
 /* Container Layout */
 .player-container {
-  max-width: 800px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 40px 20px 160px 20px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -2100,7 +2100,7 @@ AUDIO PENNAL
   --dash-accent: #03ff4a; /* Custom brand dynamic accent color */
   
   /* Layout constraints */
-  --max-content-width: 1200px;
+  /* --max-content-width: 1200px; */
 }
 
 .dashboard-layout {
@@ -2114,8 +2114,9 @@ AUDIO PENNAL
 }
 
 .dashboard-content {
-  width: 50%;
-  max-width: var(--max-content-width);
+  width: 100%;
+  max-width: 1200px;
+  margin-left: 250px;
   display: flex;
   flex-direction: column;
   gap: 40px;

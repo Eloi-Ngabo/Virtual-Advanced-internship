@@ -9,7 +9,6 @@
   "use client";
 
 import React, { useEffect, useState } from 'react';
-
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
 
@@ -160,6 +159,7 @@ export default function BookDashboard() {
      {/* ================= RECOMMENDED BOOKS SECTION ================= */}
         <section className="dashboard-section">
           <h2 className="dashboard-section__title">Recommended Books</h2>
+          <div className="for-you__sub--title">We think you'll like thses</div>
           <div className="books-grid">
             {recommendedBooks.map((book) => {
               const meta = getBookMetadata(book);
@@ -204,6 +204,7 @@ export default function BookDashboard() {
         {/* ================= SUGGESTED BOOKS SECTION ================= */}
         <section className="dashboard-section">
           <h2 className="dashboard-section__title">Suggested Books</h2>
+           <div className="for-you__sub--title">Browse those books</div>
           <div className="books-grid">
            {suggestedBooks.map((book) => {
               const meta = getBookMetadata(book);
