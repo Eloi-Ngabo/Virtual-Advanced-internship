@@ -43,7 +43,7 @@ export default function Sidebar() {
             </div>
             <div className='sidebar__wrapper'>
               <div className='sidebar__top'>
-              <a className='sidebar__link--wrapper' href='/for-you'>
+              <a className='sidebar__link--wrapper' href='/book'>
                  <div className='sidebar__link--line active--tab'></div>
                  <div className='sidebar__icon--wrapper'>
                     <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">

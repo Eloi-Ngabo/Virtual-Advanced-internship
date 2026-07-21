@@ -9,7 +9,7 @@
   "use client";
 
 import React, { useEffect, useState } from 'react';
-import Sidebar from '@/components/Sidebar';
+
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
 
@@ -117,7 +117,7 @@ export default function BookDashboard() {
     
     <div className="dashboard-layout">
       <main className="dashboard-content">
-         <Sidebar />
+       
         {/* ================= SELECTED BOOK SECTION ================= */}
         {selectedBook && (() => {
           const meta = getBookMetadata(selectedBook);

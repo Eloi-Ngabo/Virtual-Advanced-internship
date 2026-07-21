@@ -545,7 +545,7 @@ import { doc, setDoc, arrayUnion, getDoc, getFirestore } from "firebase/firestor
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { Clock, Star, Bookmark, BookmarkCheck, BookOpen, AudioLinesIcon } from "lucide-react";
 import { BiBulb } from "react-icons/bi";
-import Sidebar from "@/components/Sidebar";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAFGAUQOFxygF20GokNfwP_oKc_chG5SDc",
@@ -707,7 +707,7 @@ export default function BookPage() {
   return (
     <div className="book-view-container">
       <div className="book-layout-grid">
-        <Sidebar />
+    
         {/* Left Column: Artwork */}
         <div className="artwork-panel-column">
           <div className="sticky-artwork-wrapper">
