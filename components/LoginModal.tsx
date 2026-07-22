@@ -3,7 +3,8 @@
 
 "use client";
 import React, { useState } from 'react';
-import { signInWithPopup } from 'firebase/auth';
+import { signInWithPopup, signOut } from 'firebase/auth';
+
 
 // Import your configured Firebase elements from your own local setup file
 // NOTE: Make sure the relative path below accurately points to where you created your firebase configuration file!
@@ -13,16 +14,19 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signInAnonymously,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+
 } from '../Firebase.js'; 
 
-type AuthView = 'login' | 'register' | 'forgot-password';
+
+type AuthView = 'login' | 'register' | 'forgot-password'| 'logout';
 
 type LoginModalProps = {
   onClose: () => void;
+  onLoginSuccess?: () => void;
 };
 
-export default function LoginModal({ onClose }: LoginModalProps) {
+export default function LoginModal({ onClose, onLoginSuccess }: LoginModalProps) {
   const [view, setView] = useState<AuthView>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

@@ -139,23 +139,41 @@
 
 "use client"
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import LoginModal from './LoginModal'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { auth } from '../Firebase.js'
 
 export default function Sidebar() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   // Track whether the user is logged in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Simple handler to log out
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    // Add any extra logout logic here (e.g., clear localStorage, tokens, or auth cookies)
+  // Listen to Firebase auth state changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    });
+
+    // Clean up listener on unmount
+    return () => unsubscribe();
+  }, []);
+
+  // Simple handler to log out using Firebase signOut
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
   };
 
   // Callback passed to LoginModal to handle successful login
   const handleLoginSuccess = () => {
-    setIsLoggedIn(true);
     setShowLoginModal(false);
   };
 
