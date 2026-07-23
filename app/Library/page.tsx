@@ -23,140 +23,106 @@
 
 "use client";
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
 import LoginModal from '@/components/LoginModal';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { collection, query, where, getDocs, addDoc, serverTimestamp, getFirestore } from 'firebase/firestore';
+import { collection, query, where, getDocs, getFirestore } from 'firebase/firestore';
 import { auth } from '../Firebase';
 
 const db = getFirestore();
 
 interface Book {
-  id?: string;
+  id: string;
   title: string;
   author: string;
   coverUrl?: string;
-  userId?: string;
+  userId: string;
+  finished?: boolean;
 }
 
-// ----------------------------------------------------------------------
-// Logged In View: Saved Books + Add Book Form
-// ----------------------------------------------------------------------
 function LibraryContent({ user }: { user: User }) {
-  const [books, setBooks] = useState<Book[]>([]);
+  const [savedBooks, setSavedBooks] = useState<Book[]>([]);
+  const [finishedBooks, setFinishedBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
-  
-  // Add Book form state
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [coverUrl, setCoverUrl] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Fetch saved books for current user from Firestore
   useEffect(() => {
-    async function fetchSavedBooks() {
+    async function fetchUserBooks() {
       try {
         setLoading(true);
         const q = query(collection(db, 'savedBooks'), where('userId', '==', user.uid));
         const querySnapshot = await getDocs(q);
-        const fetchedBooks: Book[] = [];
+        
+        const saved: Book[] = [];
+        const finished: Book[] = [];
+
         querySnapshot.forEach((doc) => {
-          fetchedBooks.push({ id: doc.id, ...doc.data() } as Book);
+          const data = { id: doc.id, ...doc.data() } as Book;
+          if (data.finished) {
+            finished.push(data);
+          } else {
+            saved.push(data);
+          }
         });
-        setBooks(fetchedBooks);
+
+        setSavedBooks(saved);
+        setFinishedBooks(finished);
       } catch (error) {
-        console.error("Error fetching saved books:", error);
+        console.error("Error fetching books:", error);
       } finally {
         setLoading(false);
       }
     }
 
     if (user) {
-      fetchSavedBooks();
+      fetchUserBooks();
     }
   }, [user]);
 
-  // Handle adding a new book
-  const handleAddBook = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!title || !author) return;
-
-    try {
-      setIsSubmitting(true);
-      const newBookData = {
-        title,
-        author,
-        coverUrl: coverUrl || '/assets/default-book.png',
-        userId: user.uid,
-        createdAt: serverTimestamp(),
-      };
-
-      const docRef = await addDoc(collection(db, 'savedBooks'), newBookData);
-      
-      // Update UI state with the new book
-      setBooks((prev) => [...prev, { id: docRef.id, ...newBookData }]);
-      
-      // Reset form
-      setTitle('');
-      setAuthor('');
-      setCoverUrl('');
-    } catch (error) {
-      console.error("Error adding book:", error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  if (loading) {
+    return <p>Loading your library...</p>;
+  }
 
   return (
     <div className='library-content'>
-      <h2 className='section__subtitle'>Saved Books</h2>
-
-      {loading ? (
-        <p>Loading saved books...</p>
-      ) : books.length === 0 ? (
-        <p>You have not saved any books yet.</p>
-      ) : (
-        <div className='saved-books-grid'>
-          {books.map((book) => (
-            <div key={book.id} className='saved-book-card'>
-              {book.coverUrl && (
-                <img src={book.coverUrl} alt={book.title} className='saved-book-cover' />
-              )}
-              <div className='saved-book-details'>
-                <div className='saved-book-title'>{book.title}</div>
-                <div className='saved-book-author'>{book.author}</div>
+      {/* SECTION 1: Saved Books */}
+      <section className='library-section'>
+        <h2 className='section__subtitle'>Saved Books ({savedBooks.length})</h2>
+        {savedBooks.length === 0 ? (
+          <p>No saved books yet. Add books from the main catalog!</p>
+        ) : (
+          <div className='saved-books-grid'>
+            {savedBooks.map((book) => (
+              <div key={book.id} className='saved-book-card'>
+                <img src={book.coverUrl || '/assets/default-book.png'} alt={book.title} className='saved-book-cover' />
+                <div className='saved-book-details'>
+                  <div className='saved-book-title'>{book.title}</div>
+                  <div className='saved-book-author'>{book.author}</div>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </section>
 
-      <form className='add-book-form' onSubmit={handleAddBook}>
-        <input
-          type='text'
-          placeholder='Book title'
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className='form-input'
-        />
-        <input
-          type='text'
-          placeholder='Author'
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-          className='form-input'
-        />
-        <input
-          type='text'
-          placeholder='Cover image URL (optional)'
-          value={coverUrl}
-          onChange={(e) => setCoverUrl(e.target.value)}
-          className='form-input'
-        />
-        <button type='submit' className='btn' disabled={isSubmitting}>
-          {isSubmitting ? 'Adding book...' : 'Save book'}
-        </button>
-      </form>
+      {/* SECTION 2: Finished Books */}
+      <section className='library-section' style={{ marginTop: '2rem' }}>
+        <h2 className='section__subtitle'>Finished Books ({finishedBooks.length})</h2>
+        {finishedBooks.length === 0 ? (
+          <p>You haven't finished any books yet.</p>
+        ) : (
+          <div className='saved-books-grid'>
+            {finishedBooks.map((book) => (
+              <div key={book.id} className='saved-book-card finished'>
+                <img src={book.coverUrl || '/assets/default-book.png'} alt={book.title} className='saved-book-cover' />
+                <div className='saved-book-details'>
+                  <div className='saved-book-title'>{book.title}</div>
+                  <div className='saved-book-author'>{book.author}</div>
+                  <span className='badge badge-success'>Completed</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
     </div>
   );
 }
