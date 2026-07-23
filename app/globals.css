@@ -1512,285 +1512,13 @@ AUDIO PENNAL
 
 
 
-/* sales page or payout */
-
-/* Base Container Framework */
-.sales-container {
-  min-height: 100vh;
-  background-color: #f8fafc;
-  color: #0f172a;
-  font-family: sans-serif;
-  padding: 3rem 1rem;
-}
-
-@media (min-width: 640px) { .sales-container { padding-left: 1.5rem; padding-right: 1.5rem; } }
-@media (min-width: 1024px) { .sales-container { padding-left: 2rem; padding-right: 2rem; } }
-
-.sales-header {
-  max-w: 48rem;
-  margin: 0 auto 2.5rem auto;
-  text-align: center;
-}
-
-.sales-title {
-  font-size: 2.25rem;
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  line-height: 1.25;
-}
-@media (min-width: 640px) { .sales-title { font-size: 3rem; } }
-
-.sales-subtitle {
-  margin-top: 1rem;
-  font-size: 1.25rem;
-  color: #475569;
-}
-
-/* Custom Interactive Switch Panel */
-.toggle-wrapper {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-}
-
-.toggle-label {
-  font-size: 0.875rem;
-  font-weight: 600;
-  transition: color 0.2s;
-}
-.toggle-label.active { color: #2563eb; }
-.toggle-label.inactive { color: #64748b; }
-
-.toggle-button {
-  position: relative;
-  display: inline-flex;
-  height: 1.5rem;
-  width: 2.75rem;
-  align-items: center;
-  border-radius: 9999px;
-  background-color: #2563eb;
-  border: none;
-  cursor: pointer;
-  outline: none;
-}
-
-.toggle-slider {
-  inline-size: 1rem;
-  block-size: 1rem;
-  border-radius: 9999px;
-  background-color: #ffffff;
-  transition: transform 0.2s;
-  transform: translateX(0.25rem);
-}
-.toggle-slider.shifted {
-  transform: translateX(1.5rem);
-}
-
-.badge-saving {
-  background-color: #dcfce7;
-  color: #166534;
-  font-size: 0.75rem;
-  padding: 0.125rem 0.5rem;
-  border-radius: 9999px;
-  font-weight: 700;
-}
-
-/* Plan Display Card Block */
-.pricing-card {
-  max-w: 28rem;
-  margin: 0 auto;
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 1rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  overflow: hidden;
-  transition: all 0.3s;
-}
-.pricing-card:hover {
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-}
-
-.card-body { padding: 2rem; }
-
-.card-header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.plan-name {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0;
-}
-
-.plan-desc {
-  color: #64748b;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
-  margin-bottom: 0;
-}
-
-.badge-trial {
-  background-color: #dbeafe;
-  color: #1e40af;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.price-row {
-  margin-top: 1.5rem;
-  display: flex;
-  align-items: baseline;
-}
-
-.price-amount {
-  font-size: 3rem;
-  font-weight: 800;
-  letter-spacing: -0.025em;
-}
-
-.price-period {
-  margin-left: 0.25rem;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #64748b;
-}
-
-.price-fineprint {
-  font-size: 0.75rem;
-  color: #16a34a;
-  font-weight: 500;
-  margin-top: 0.25rem;
-  margin-bottom: 0;
-}
-
-.checkout-btn {
-  margin-top: 2rem;
-  width: 100%;
-  background-color: #2563eb;
-  color: #ffffff;
-  border-radius: 0.75rem;
-  padding: 0.75rem 1rem;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s;
-}
-.checkout-btn:hover { background-color: #1d4ed8; }
-.checkout-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-/* Itemized Value Checklists */
-.feature-list {
-  margin-top: 2rem;
-  padding: 1.5rem 0 0 0;
-  list-style: none;
-  border-top: 1px solid #f1f5f9;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.feature-item {
-  display: flex;
-  align-items: flex-start;
-  font-size: 0.875rem;
-  color: #475569;
-}
-
-.feature-icon {
-  height: 1.25rem;
-  width: 1.25rem;
-  color: #3b82f6;
-  flex-shrink: 0;
-  margin-right: 0.5rem;
-}
-
-/* Accordion Component Module */
-.faq-container {
-  max-w: 42rem;
-  margin: 5rem auto 0 auto;
-}
-
-.faq-main-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.faq-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.faq-item-box {
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.75rem;
-  overflow: hidden;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.faq-trigger {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.25rem;
-  font-weight: 600;
-  text-align: left;
-  color: #1e293b;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-.faq-trigger:hover { background-color: #f8fafc; }
-
-.faq-arrow {
-  width: 1.25rem;
-  height: 1.25rem;
-  color: #64748b;
-  transition: transform 0.2s;
-}
-.faq-arrow.rotated { transform: rotate(180deg); }
-
-.faq-collapse {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-in-out;
-}
-.faq-collapse.open {
-  max-height: 10rem;
-  border-top: 1px solid #f1f5f9;
-}
-
-.faq-answer {
-  padding: 1.25rem;
-  font-size: 0.875rem;
-  color: #475569;
-  line-height: 1.625;
-  margin: 0;
-}
-
-/* Global Helpers */
-.flex-center { display: flex; align-items: center; }
-.gap-sm { gap: 0.375rem; }
 
 
 
+/* 
+SETTINGS CSS PAGE
 
-
-/* setting CSS */
+*/
 
 /* Base Canvas & Container Layouts */
 .settings-page {
@@ -1873,7 +1601,7 @@ AUDIO PENNAL
 }
 
 .settings-row__label {
-  font-size: 0.75rem;
+  font-size: 24px;
   font-weight: 700;
   text-transform: uppercase;
   color: #94a3b8;
@@ -2823,7 +2551,54 @@ button {
 }
 
 
+.section__title.page__title {
+    text-align: left;
+    border-bottom: 1px solid #e1e7ea;
+    padding-bottom: 16px;
+}
 
+.section__title {
+    font-size: 32px;
+    color: #032b41;
+    text-align: center;
+    margin-bottom: 32px;
+    font-weight: 700;
+}
+
+.setting__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid #e1e7ea;
+    padding-bottom: 24px;
+}
+
+.settings__sub--title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #032b41;
+}
+
+.settings__text {
+    color: #032b41;
+}
+
+.setting__content:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.settings__sub--title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #032b41;
+}
+
+.settings__text {
+    color: #032b41;
+}
 /*
 
 Books info CSS
@@ -3043,6 +2818,309 @@ width: 100%;
 width: 100%;
     }
 } */
+
+
+
+
+/* 
+
+SALES CSS PAGE OR PAYOUT
+
+ */
+
+/* Container Layout */
+.sales-container {
+  max-width: 700px;
+  margin: 0 auto;
+  /* margin-left: 200px; */
+  padding: 3rem 1.5rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #1a202c;
+}
+
+/* Header Styling */
+.sales-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.sales-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #111827;
+  margin-bottom: 0.75rem;
+}
+
+.sales-subtitle {
+  font-size: 1.125rem;
+  color: #4b5563;
+  margin-bottom: 2rem;
+}
+
+/* Toggle Switch */
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.875rem;
+}
+
+.toggle-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #6b7280;
+  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toggle-label.active {
+  color: #111827;
+  font-weight: 700;
+}
+
+.toggle-button {
+  width: 3.25rem;
+  height: 1.75rem;
+  background-color: #0b49c4;
+  border-radius: 9999px;
+  padding: 0.25rem;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.toggle-button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.toggle-slider {
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: #f3f3f8;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgb(1, 248, 129);
+  transition: transform 0.2s ease;
+}
+
+.toggle-slider.shifted {
+  transform: translateX(1.5rem);
+}
+
+.badge-saving {
+  background-color: #c8d4cc;
+  color: #15803d;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+}
+
+/* Pricing Card */
+.pricing-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  margin-bottom: 3.5rem;
+}
+
+.card-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.plan-name {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.plan-desc {
+  font-size: 0.95rem;
+  color: #1e4186;
+  margin-top: 0.25rem;
+}
+
+.badge-trial {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  font-size: 0.825rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+}
+
+.price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.price-amount {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.price-period {
+  font-size: 1.125rem;
+  color: #2d426c;
+}
+
+.price-fineprint {
+  font-size: 0.85rem;
+  color: #496294;
+  margin-bottom: 1.5rem;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.checkout-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.checkout-btn:disabled {
+  background-color: #93c5fd;
+  cursor: not-allowed;
+}
+
+/* Feature List */
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  border-top: 1px solid #f3f4f6;
+  padding-top: 1.5rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.feature-icon {
+  color: #0da640;
+  flex-shrink: 0;
+}
+
+/* FAQ Section */
+.faq-container {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 3rem;
+}
+
+.faq-main-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.faq-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.faq-item-box {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.faq-trigger {
+  width: 100%;
+  padding: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  text-align: left;
+  cursor: pointer;
+}
+
+.faq-arrow {
+  transition: transform 0.2s ease;
+  color: #0e0f11;
+}
+
+.faq-arrow.rotated {
+  transform: rotate(180deg);
+}
+
+.faq-collapse {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0, 1, 0, 1), padding 0.3s ease;
+  padding: 0 1.25rem;
+}
+
+.faq-collapse.open {
+  max-height: 300px;
+  padding-bottom: 1.25rem;
+}
+
+.faq-answer {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #4b5563;
+  margin: 0;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 640px) {
+  .salesContainer {
+    padding: 2rem 1rem;
+  }
+
+  .pricingCard {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .faqTrigger {
+    padding: 1rem 1.25rem;
+    font-size: 0.975rem;
+  }
+}
+
+
+
+
 
 
 
